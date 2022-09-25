@@ -1,20 +1,30 @@
 <template>
   <div id="app">
     <navBar />
+    <composantCarousel :slides="slides" />
   </div>
 </template>
 
 <script>
 import navBar from './components/composantNavbar.vue';
+import composantCarousel from './components/carousel/composantCarousel.vue';
 
 export default {
   name: 'App',
   components: {
     navBar,
+    composantCarousel,
   },
   data() {
     return {
       players: [],
+      slides: [
+        'https://picsum.photos/id/1032/900/400',
+        'https://picsum.photos/id/1033/900/400',
+        'https://picsum.photos/id/1037/900/400',
+        'https://picsum.photos/id/1036/900/400',
+        'https://picsum.photos/id/1035/900/400',
+      ],
     };
   },
   mounted() {
