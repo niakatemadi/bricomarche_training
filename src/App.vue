@@ -2,18 +2,21 @@
   <div id="app">
     <navBar />
     <composantCarousel :slides="slides" />
+    <navButton />
   </div>
 </template>
 
 <script>
 import navBar from './components/composantNavbar.vue';
 import composantCarousel from './components/carousel/composantCarousel.vue';
+import navButton from './components/button/composantButton.vue';
 
 export default {
   name: 'App',
   components: {
     navBar,
     composantCarousel,
+    navButton,
   },
   data() {
     return {
