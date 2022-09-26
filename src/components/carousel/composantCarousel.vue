@@ -6,22 +6,27 @@
         :key="`item-${index}`"
         :currentSlide="currentSlide"
         :index="index"
-        :slide="slide"
+        :slideimg="slide"
+        :slideside="slideside"
       />
+      <slideIndicator :slides="slides" :currentSlide="currentSlide" />
+      <carouselControl @next-item="nextItem" @prev-item="prevItem" />
     </div>
   </div>
 </template>
 
 <script>
 import carouselItem from './carouselItem.vue';
-
+import carouselControl from './carouselControls.vue';
+import slideIndicator from './slideIndicator.vue';
 export default {
   name: 'composantCarousel',
-  components: { carouselItem },
+  components: { carouselItem, carouselControl, slideIndicator },
   data() {
     return {
       currentSlide: 0,
       intervalId: null,
+      slideside: null,
     };
   },
   props: {
@@ -34,13 +39,30 @@ export default {
     setCurrentSlide(index) {
       this.currentSlide = index;
     },
-  },
-  mounted() {
-    this.intervalId = setInterval(() => {
+    prevItem(payload) {
+      if (this.currentSlide === 0) {
+        this.slideside = payload.side;
+        this.currentSlide = 4;
+      } else {
+        this.slideside = payload.side;
+        const index =
+          this.currentSlide <= this.slides.length - 1
+            ? this.currentSlide - payload.number
+            : 0;
+        this.currentSlide = index;
+      }
+    },
+    nextItem(payload) {
+      this.slideside = payload.side;
       const index =
         this.currentSlide < this.slides.length - 1 ? this.currentSlide + 1 : 0;
       this.currentSlide = index;
-    }, 2000);
+    },
+  },
+  mounted() {
+    this.intervalId = setInterval(() => {
+      this.nextItem();
+    }, 5000);
   },
   beforeDestroy() {
     clearInterval(this.intervalId);
@@ -49,7 +71,6 @@ export default {
 </script>
 <style scoped>
 .componentCarousel {
-  border: 1px solid blue;
   display: flex;
   justify-content: center;
 }

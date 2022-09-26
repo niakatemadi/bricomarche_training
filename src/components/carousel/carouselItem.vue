@@ -1,7 +1,7 @@
 <template>
-  <transition name="slide-in">
+  <transition :name="slideside">
     <div class="carousel-item" v-show="currentSlide === index">
-      <img :src="slide" />
+      <img :src="slideimg" />
     </div>
   </transition>
 </template>
@@ -9,7 +9,7 @@
 <script>
 export default {
   name: 'carouselItem',
-  props: ['slide', 'currentSlide', 'index'],
+  props: ['slideimg', 'currentSlide', 'index', 'slideside'],
 };
 </script>
 
@@ -20,7 +20,6 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  border: 1px solid green;
 }
 .slide-in-enter-active,
 .slide-in-leave-active {
@@ -31,5 +30,15 @@ export default {
 }
 .slide-in-leave-to {
   transform: translateX(100%);
+}
+.slide-out-enter-active,
+.slide-out-leave-active {
+  transition: all 1s ease-in-out;
+}
+.slide-out-enter {
+  transform: translateX(100%);
+}
+.slide-out-leave-to {
+  transform: translateX(-100%);
 }
 </style>
